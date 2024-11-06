@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <link rel="stylesheet" href="/static/styles/style.css">
 </head>
 <body>
     <nav class="navbar">
         <ul>
-            <li><a href="cadastro-cliente" target="_self">Cliente</a></li>
-            <li><a href="cadastro-livro" target="_self">Livro</a></li>
-            <li><a href="cadastro-atendente" target="_self">Atendente</a></li>
-            <li><a href="cadastro-editora" target="_self">Editora</a></li>
-        </ul>
+            <li><a href="/templates/index.html" target="_self">Página Inicial</a></li>
+            <li><a href="/templates/cadastro-atendente.html" target="_self">Atendente</a></li>
+            <li><a href="/templates/cadastro-clientes.html" target="_self">Clientes</a></li>
+            <li><a href="/templates/cadastro-editora.html" target="_self">Editoras</a></li>
+            <li><a href="/templates/cadastro-livro.html" target="_self">Livros</a></li>        </ul>
     </nav>
     <div class="container">
         <h1>Cadastro de Atendente</h1>
@@ -22,7 +22,16 @@
             <input type="text" name="nomeAtendente" id="nomeAtendente" required>
 
             <label for="cargo">Cargo:</label>
-            <input type="text" name="cargo" id="cargo" required>
+            <select name="select">Selecione
+                <option value="valor1">Atendente</option>
+                <option value="valor2">Gerente</option>
+                <option value="valor3">Administrador</option>
+              </select>
+
+            <label for="dataNascimento">Data de Nascimento:</label>
+            <input type="date" name="dataNascimento" id="dataNascimento" required>        
+
+            <h2>Criar Login</h1>
 
             <label for="emailAtendente">Email:</label>
             <input type="email" name="emailAtendente" id="emailAtendente" required>
@@ -30,6 +39,13 @@
             {% if error_message %}
                 <p id="error_message">Erro: {{error_message}}</p>
             {% endif %}
+    
+            <label for="passwordAtendente">Senha:</label>
+            <input type="password" name="passwordAtendente" id="passwordAtendente" required>
+
+            <label for="passwordAtendente">Digite a senha novamente:</label>
+            <input type="password" name="passwordAtendente" id="passwordAtendente" required>
+
 
             <button type="submit">Cadastrar</button>
         </form>
