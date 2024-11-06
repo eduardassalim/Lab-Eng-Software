@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-    <link rel="stylesheet" href="/static/styles/style.css">
-</head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}"></head>
 <body>
     <nav class="navbar">
         <ul>
-            <li><a href="/templates/index.html" target="_self">Página Inicial</a></li>
-            <li><a href="/templates/cadastro-atendente.html" target="_self">Atendente</a></li>
-            <li><a href="/templates/cadastro-clientes.html" target="_self">Clientes</a></li>
-            <li><a href="/templates/cadastro-editora.html" target="_self">Editoras</a></li>
-            <li><a href="/templates/cadastro-livro.html" target="_self">Livros</a></li>        </ul>
+            <li><a href="{{ url_for('index') }}" target="_self">Página Inicial</a></li>
+            <li><a href="{{ url_for('cad_atendente') }}" target="_self">Atendente</a></li>
+            <li><a href="{{ url_for('cad_cliente') }}" target="_self">Clientes</a></li>
+            <li><a href="{{ url_for('cad_editora') }}" target="_self">Editoras</a></li>
+            <li><a href="{{ url_for('cad_livro') }}" target="_self">Livros</a></li>
+        </ul>
     </nav>
     <div class="container">
         <h1>Cadastro de Atendente</h1>
@@ -22,7 +22,7 @@
             <input type="text" name="nomeAtendente" id="nomeAtendente" required>
 
             <label for="cargo">Cargo:</label>
-            <select name="select">Selecione
+            <select name="cargo">Selecione
                 <option value="valor1">Atendente</option>
                 <option value="valor2">Gerente</option>
                 <option value="valor3">Administrador</option>
