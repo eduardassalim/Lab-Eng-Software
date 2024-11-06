@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table Editoras</title>
+    <title>Tables</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
 </head>
 <body>
@@ -18,14 +18,14 @@
     <div class="container">
         <h1>Clientes</h1>
         {% for cliente in clientes %}
-            <p>Cliente ID: {{ cliente.id }} - Nome: {{ cliente.nome }} - Email: {{ cliente.email }} - Telefone: {{ cliente.telefone }}</p>
+            <p>Cliente ID: {{ cliente.id }} - Nome: {{ cliente.nome }} - Email: {{ cliente.email }} - Telefone: {{ '({}) {}-{}'.format(cliente.telefone[:2], cliente.telefone[2:7], cliente.telefone[7:]) }}</p>
         {% endfor %}
     </div>
     
     <div class="container">
         <h1>Livros</h1>
         {% for livro in livros %}
-            <p>Livro ID: {{ livro.id }} - Título: {{ livro.titulo }} - Autor: {{ livro.autor }} - ISBN: {{ livro.ISBN }} - Data de Lançamento: {{ livro.dataLancamento }}</p>
+            <p>Livro ID: {{ livro.id }} - Título: {{ livro.titulo }} - Autor: {{ livro.autor }} - ISBN: {{ '{}-{}-{}-{}-{}'.format(livro.ISBN[:3], livro.ISBN[3:5], livro.ISBN[5:8], livro.ISBN[8:12], livro.ISBN[12:]) }} - Data de Lançamento: {{ livro.data_lancamento.strftime("%d/%m/%Y") }}</p>
         {% endfor %}
     </div>
 
@@ -39,7 +39,7 @@
     <div class="container">
         <h1>Editoras</h1>
         {% for editora in editoras %}
-            <p>Editora ID: {{ editora.id }} - Nome: {{ editora.nome }} - Endereco: {{ editora.endereco }} - Telefone: {{ editora.telefone }} - CNPJ: {{ editora.CNPJ }}</p>
+            <p>Editora ID: {{ editora.id }} - Nome: {{ editora.nome }} - Endereco: {{ editora.endereco }} - Telefone: {{ '({}) {}-{}'.format(editora.telefone[:2], editora.telefone[2:7], editora.telefone[7:]) }} - CNPJ: {{ '{}.{}.{}/{}-{}'.format(editora.CNPJ[:2], editora.CNPJ[2:5], editora.CNPJ[5:8], editora.CNPJ[8:12], editora.CNPJ[12:]) }}</p>
         {% endfor %}
     </div>
 </body>

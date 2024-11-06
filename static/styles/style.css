@@ -73,4 +73,5 @@ button:hover {
 
 #error_message {
     color: red;
+    margin-top: 0px;
 }

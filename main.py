@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request, redirect
-from db import CLIENTES, ATENDENTES, EDITORAS, LIVROS
 from datetime import datetime
+from database.models.cliente import Cliente
+from database.models.atendente import Atendente
+from database.models.livro import Livro
+from database.models.editora import Editora
+from database.database import db
 
 app = Flask(__name__)
 
@@ -16,20 +20,17 @@ def cad_cliente():
     if (request.method == 'POST'):
         dados = request.form
                 
-        for cliente in CLIENTES:
-            if cliente['email'] == dados['emailCliente']:
+        for cliente in Cliente.select():
+            if cliente.email == dados['emailCliente']:
                 error = True
         
         if (error != True):
-            novoCliente = {
-                "id": (CLIENTES[len(CLIENTES) - 1]["id"] + 1),
-                "nome": dados['nomeCliente'],
-                "email": dados['emailCliente'],
-                "telefone": dados['telefoneCliente']
-            }
-            
-            CLIENTES.append(novoCliente)
-            
+            Cliente.create(
+                nome = dados['nomeCliente'],
+                email = dados['emailCliente'],
+                telefone = dados['telefoneCliente']
+            )
+                        
             return redirect("/test-tables")
         else:
             error_message = "E-mail já existente!"
@@ -43,26 +44,23 @@ def cad_livro():
     if (request.method == 'POST'):
         dados = request.form
 
-        for livro in LIVROS:
-            if livro['titulo'] == dados['tituloLivro']:
+        for livro in Livro.select():
+            if livro.ISBN == dados['ISBN']:
                 error = True
         
         if (error != True):
-            data = datetime.strptime(dados['dataLancamento'], "%Y-%m-%d")
-
-            novoLivro = {
-                "id": (LIVROS[len(LIVROS) - 1]["id"] + 1),
-                "titulo": dados['tituloLivro'],
-                "autor": dados['autorLivro'],
-                "ISBN": dados['ISBN'],
-                "dataLancamento": data.strftime("%d/%m/%Y")
-            }
+            data = datetime.strptime(dados['dataLancamento'], "%Y-%m-%d") # transforma string em datetime
             
-            LIVROS.append(novoLivro)
-            
+            Livro.create(
+                titulo = dados['tituloLivro'],
+                autor = dados['autorLivro'],
+                ISBN = dados['ISBN'],
+                data_lancamento = data
+            )
+                             
             return redirect("/test-tables")
         else:
-            error_message = "Título para livro já cadastrado!"
+            error_message = "ISBN para livro já cadastrado!"
     
     return render_template('cadastro-livro.html', error_message = error_message)
 
@@ -74,20 +72,17 @@ def cad_atendente():
     if (request.method == 'POST'):
         dados = request.form
         
-        for atendente in ATENDENTES:
-            if atendente['email'] == dados['emailAtendente']:
+        for atendente in Atendente.select():
+            if atendente.email == dados['emailAtendente']:
                 error = True
         
         if (error != True):
-            novoAtendente = {
-                "id": (ATENDENTES[len(ATENDENTES) - 1]["id"] + 1),
-                "nome": dados['nomeAtendente'],
-                "email": dados['emailAtendente'],
-                "cargo": dados['cargo']
-            }
-            
-            ATENDENTES.append(novoAtendente)
-            
+            Atendente.create(
+                nome = dados['nomeAtendente'],
+                email = dados['emailAtendente'],
+                cargo = dados['cargo']
+            )
+                        
             return redirect("/test-tables")
         else:
             error_message = "E-mail já cadastrado!"
@@ -102,21 +97,18 @@ def cad_editora():
     if (request.method == 'POST'):
         dados = request.form
         
-        for editora in EDITORAS:
-            if editora['CNPJ'] == dados['cnpjEditora']:
+        for editora in Editora.select():
+            if editora.CNPJ == dados['cnpjEditora']:
                 error = True
         
         if (error != True):
-            novaEditora = {
-                "id": (EDITORAS[len(EDITORAS) - 1]["id"] + 1),
-                "nome": dados['nomeEditora'],
-                "endereco": dados['endereco'],
-                "telefone": dados['telefoneEditora'],
-                "CNPJ": dados['cnpjEditora']
-            }
-            
-            EDITORAS.append(novaEditora)
-            
+            Editora.create(
+                nome = dados['nomeEditora'],
+                endereco = dados['endereco'],
+                telefone = dados['telefoneEditora'],
+                CNPJ = dados['cnpjEditora']
+            )
+                        
             return redirect("/test-tables")
         else:
             error_message = "CNPJ já cadastrado!"
@@ -125,7 +117,11 @@ def cad_editora():
 
 @app.route("/test-tables")
 def test_tables():
-    return render_template('test-tables.html', clientes = CLIENTES, atendentes = ATENDENTES, editoras = EDITORAS, livros = LIVROS)
+    return render_template('test-tables.html', clientes = Cliente.select(), atendentes = Atendente.select(), editoras = Editora.select(), livros = Livro.select())
+
+db.connect()
+
+db.create_tables([Cliente, Atendente, Livro, Editora])
 
 if (__name__ == '__main__'):
     app.run(debug=True)
