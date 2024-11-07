@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}"></head>
+    <link rel="stylesheet" href="/static/styles/style.css">
+</head>
 <body>
     <nav class="navbar">
+        <img src="assets/img/logo.png" id="logo" width="110px" height="120px" alt="" srcset="">
+
         <ul>
-            <li><a href="{{ url_for('index') }}" target="_self">Página Inicial</a></li>
-            <li><a href="{{ url_for('cad_atendente') }}" target="_self">Atendente</a></li>
-            <li><a href="{{ url_for('cad_cliente') }}" target="_self">Clientes</a></li>
-            <li><a href="{{ url_for('cad_editora') }}" target="_self">Editoras</a></li>
-            <li><a href="{{ url_for('cad_livro') }}" target="_self">Livros</a></li>
+            <li><a href="/templates/login.html" target="_self">Página Inicial</a></li>
+            <li><a href="/templates/cadastro-atendente.html" target="_self">Atendente</a></li>
+            <li><a href="/templates/cadastro-clientes.html" target="_self">Clientes</a></li>
+            <li><a href="/templates/cadastro-editora.html" target="_self">Editoras</a></li>
+            <li><a href="/templates/cadastro-livro.html" target="_self">Livros</a></li>
         </ul>
     </nav>
 
@@ -22,15 +25,22 @@
             <label for="titulo">Título:</label>
             <input type="text" name="tituloLivro" id="titulo" required>
 
-            <label for="autor">Autor:</label>
-            <input type="text" name="autorLivro" id="autor" required>
-
-            <label for="isbn">ISBN:</label>
-            <input type="text" name="ISBN" id="isbn" required>
-
             {% if error_message %}
                 <p id="error_message">Erro: {{error_message}}</p>
             {% endif %}
+
+            <label for="autor">Autor:</label>
+            <input type="text" name="autorLivro" id="autor" required>
+
+            <label for="nomeEditora">Nome da Editora:</label>
+            <select name="select">
+                <option value="rocco">Rocco</option>
+                <option value="moderna">Moderna</option>
+                <option value="arqueiro">Arqueiro</option>
+              </select>
+
+            <label for="isbn">ISBN:</label>
+            <input type="text" name="ISBN" id="isbn" required>
 
             <label for="dataLancamento">Data de Lançamento:</label>
             <input type="date" name="dataLancamento" id="dataLancamento" required>
