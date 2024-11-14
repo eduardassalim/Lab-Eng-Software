@@ -1,0 +1,6 @@
+<ul>
+    <li>ID: {{ cliente.id }}</li>
+    <li>Nome: {{ cliente.nome }}</li>
+    <li>E-mail: {{ cliente.email }}</li>
+    <li>Telefone: {{ '({}) {}-{}'.format(cliente.telefone[:2], cliente.telefone[2:7], cliente.telefone[7:]) }}</li>
+</ul>

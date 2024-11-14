@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, redirect # importação dos m
 
 from datetime import datetime # importação do método datetime
 
+from routes.home import home_route # importação da blueprint home
+from routes.cliente import cliente_route # importação da blueprint cliente
+
 # importação das models das tabelas do banco (abaixo)
 from database.models.cliente import Cliente
 from database.models.atendente import Atendente
@@ -12,39 +15,8 @@ from database.database import db # importação do banco de dados
 
 app = Flask(__name__) # inicialização padrão do aplicativo Flask
 
-# rota raiz
-@app.route("/")
-def index():
-    return render_template('index.html')
-
-# rota para o cadastro do cliente
-@app.route("/cadastro-cliente", methods = ['GET','POST'])
-def cad_cliente():
-    error = False
-    error_message = None # inicialização de variáveis para verificar erro
-    
-    if (request.method == 'POST'): # verificando se o método do rerquest está sendo um POST
-        dados = request.form # atribuindo os dados do request de uma tag for para uma variável
-                
-        # verificando se o email do request já está cadastrado no banco de dados
-        for cliente in Cliente.select():
-            if cliente.email == dados['emailCliente']:
-                error = True
-        
-        # se não houver erro irá realizar a inserção no banco de dados
-        if (error != True):
-            Cliente.create(
-                nome = dados['nomeCliente'],
-                email = dados['emailCliente'],
-                telefone = dados['telefoneCliente']
-            )
-                        
-            return redirect("/test-tables") # redirecionamento para outra página
-        
-        # em caso de erro, uma mensagem de erro é renderizada com o template para realizar o cadastro novamente
-        else:
-            error_message = "E-mail já existente!"
-    return render_template('cadastro-clientes.html', error_message = error_message)
+app.register_blueprint(home_route)
+app.register_blueprint(cliente_route, url_prefix='/clientes')
 
 #rota para o cadastro do livro
 @app.route("/cadastro-livro", methods = ['GET', 'POST']) # definido os dois métodos de request da página

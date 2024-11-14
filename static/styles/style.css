@@ -101,6 +101,10 @@ span:hover{
     height: 670px;
 }
 
+.table {
+    text-align: center;
+}
+
 #cadastrar,
 #login{
     height: 400px;
