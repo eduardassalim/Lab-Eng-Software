@@ -6,6 +6,7 @@ from routes.home import home_route # importação da blueprint home
 from routes.cliente import cliente_route # importação da blueprint cliente
 from routes.atendente import atendente_route # importação da blueprint atendente
 from routes.editora import editora_route # importação da blueprint editora
+from routes.livro import livro_route # importação da blueprint editora
 
 # importação das models das tabelas do banco (abaixo)
 from database.models.livro import Livro
@@ -20,40 +21,8 @@ app = Flask(__name__) # inicialização padrão do aplicativo Flask
 app.register_blueprint(home_route)
 app.register_blueprint(cliente_route, url_prefix='/clientes')
 app.register_blueprint(atendente_route, url_prefix='/atendentes')
-app.register_blueprint(editora_route, url_prefix='/editora')
-
-#rota para o cadastro do livro
-@app.route("/cadastro-livro", methods = ['GET', 'POST']) # definido os dois métodos de request da página
-def cad_livro():
-    error = False
-    error_message = None # inicialização de variáveis para verificar erro
-    
-    if (request.method == 'POST'): # verificando se o método do rerquest está sendo um POST
-        dados = request.form # atribuindo os dados do request de uma tag for para uma variável
-
-        # verificando se a ISBN do request já está cadastrada no banco de dados
-        for livro in Livro.select():
-            if livro.ISBN == dados['ISBN']:
-                error = True
-        
-        # se não houver erro irá realizar a inserção no banco de dados
-        if (error != True):
-            data = datetime.strptime(dados['dataLancamento'], "%Y-%m-%d") # transforma string em datetime
-            
-            Livro.create(
-                titulo = dados['tituloLivro'],
-                autor = dados['autorLivro'],
-                ISBN = dados['ISBN'],
-                data_lancamento = data
-            )
-                             
-            return redirect("/test-tables") # redirecionamento para outra página
-        
-        # em caso de erro, uma mensagem de erro é renderizada com o template para realizar o cadastro novamente
-        else:
-            error_message = "ISBN para livro já cadastrado!"
-    
-    return render_template('cadastro-livro.html', error_message = error_message) 
+app.register_blueprint(editora_route, url_prefix='/editoras')
+app.register_blueprint(livro_route, url_prefix='/livros')
 
 db.connect() # conexão com o banco de dados
 

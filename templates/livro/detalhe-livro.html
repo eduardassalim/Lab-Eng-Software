@@ -1,0 +1,7 @@
+<ul>
+    <li>ID: {{ livro.id }}</li>
+    <li>Título: {{ livro.titulo }}</li>
+    <li>Autor: {{ livro.autor }}</li>
+    <li>ISBN: {{ '{}-{}-{}-{}-{}'.format(livro.ISBN[:3], livro.ISBN[3:5], livro.ISBN[5:8], livro.ISBN[8:12], livro.ISBN[12:]) }}</li>
+    <li>Data de Lançamento: {{ livro.data_lancamento.strftime("%d/%m/%Y") }}</li>
+</ul>
