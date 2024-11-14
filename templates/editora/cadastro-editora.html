@@ -1,0 +1,28 @@
+<h1>Cadastro de Editora</h1>
+<form class="c-form" 
+    action= "{% if editora %}{{ url_for('editora.atualizar_editora', id=editora.id) }}{% else %}{{ url_for('editora.inserir_editora') }}{% endif %}"
+
+    method="{% if editora %}PUT{% else %}POST{% endif %}"
+
+    {% if editora %}
+        c-swap="#editora-{{ editora.id }}"
+    {% else %}
+        c-append="#lista-editoras"
+    {% endif %}
+
+    c-reload-container="true">
+
+    <label for="nomeEditora">Nome:</label>
+    <input type="text" name="nomeEditora" id="nomeEditora" {% if editora %} value="{{ editora.nome }}" {% endif %} required>
+
+    <label for="endereco">Endereço:</label>
+    <input type="text" name="enderecoEditora" id="endereco" {% if editora %} value="{{ editora.endereco }}" {% endif %} required>
+
+    <label for="telefoneEditora">Telefone:</label>
+    <input type="tel" name="telefoneEditora" id="telefoneEditora" {% if editora %} value="{{ editora.telefone }}" {% endif %} required>
+
+    <label for="cnpjEditora">CNPJ:</label>
+    <input type="cnpj" name="cnpjEditora" id="cnpjEditora" {% if editora %} value="{{ editora.CNPJ }}" {% endif %} required>
+
+    <button class="cadastrar" type="submit">{% if editora %}Salvar{% else %}Cadastrar{% endif %}</button>
+</form>

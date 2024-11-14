@@ -1,0 +1,12 @@
+<tr id="livro-{{ livro.id }}">
+    <th scope="row">{{ livro.id }}</th>
+    <td>{{ livro.titulo }}</td>
+    <td>{{ livro.autor }}</td>
+    <td>{{ '{}-{}-{}-{}-{}'.format(livro.ISBN[:3], livro.ISBN[3:5], livro.ISBN[5:8], livro.ISBN[8:12], livro.ISBN[12:]) }}</td>
+    <td>{{ livro.data_lancamento.strftime("%d/%m/%Y") }}</td>
+    <td>
+        <button id="info" c-get="{{ url_for('livro.detalhe_livro', id=livro.id) }}" c-target="#exibir-livro" data-bs-toggle="modal" data-bs-target="#livroModal">Info</button>
+        <button id="editar" c-get="{{ url_for('livro.editar_livro', id=livro.id) }}" c-target="#form-livro">Editar</button>
+        <button id="excluir" c-delete="{{ url_for('livro.deletar_livro', id=livro.id) }}" c-remove-closest="tr">Excluir</button>
+    </td>
+</tr>

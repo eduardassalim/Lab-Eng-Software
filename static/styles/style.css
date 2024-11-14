@@ -11,6 +11,7 @@ html, body {
     background-color: #4d8f58;
     padding: 15px;
     margin-bottom: 20px;
+    display: flex;
 }
 
 .navbar ul {
@@ -47,6 +48,15 @@ h1 {
     margin-bottom: 20px;
 }
 
+h2 {
+    font-size: 0.8em;
+    margin-bottom: 20px;
+}
+
+.titulo_secao {
+    text-align: center;
+}
+
 label {
     display: block;
     margin: 10px 0 5px;
@@ -61,7 +71,7 @@ select {
     border-radius: 5px;
 }
 
-button {
+.cadastrar {
     background-color: #28a745;
     color: white;
     padding: 10px 15px;
@@ -71,12 +81,8 @@ button {
     margin-top: 10px;
 }
 
-button:hover {
+.cadastrar:hover {
     background-color: #218838;
-}
-
-#error_message {
-    color: red;
 }
 
 span a{
@@ -104,15 +110,15 @@ span:hover{
     height: 600px;
 }
 
+.table {
+    text-align: center;
+}
+
 #cadastrar,
 #login{
     height: 350px;
     box-shadow: none;
     border-radius: 0% ;
-}
-
-#logo{
-    margin-left: 43%;
 }
 
 #editar{
@@ -127,6 +133,7 @@ span:hover{
 #editar button:hover{
     background-color: #5479f1;
 }
+
 #excluir{
     background-color: #f52222;
     color: rgb(0, 0, 0);

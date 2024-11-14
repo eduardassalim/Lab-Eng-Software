@@ -1,0 +1,18 @@
+<h2>Lista de Livros</h2>
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Título</th>
+        <th scope="col">Autor</th>
+        <th scope="col">ISBN</th>
+        <th scope="col">Data de Lançamento</th>
+        <th scope="col">Ações</th>
+        </tr>
+    </thead>
+    <tbody id="lista-livros">
+        {% for livro in livros %}
+            {% include 'livro/item_livro.html' %}
+        {% endfor %}
+    </tbody>
+</table>

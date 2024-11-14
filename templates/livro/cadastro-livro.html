@@ -1,0 +1,27 @@
+<h1>Cadastro de Livro</h1>
+<form class="c-form" 
+    action= "{% if livro %}{{ url_for('livro.atualizar_livro', id=livro.id) }}{% else %}{{ url_for('livro.inserir_livro') }}{% endif %}"
+
+    method="{% if livro %}PUT{% else %}POST{% endif %}"
+
+    {% if livro %}
+        c-swap="#livro-{{ livro.id }}"
+    {% else %}
+        c-append="#lista-livros"
+    {% endif %}
+
+    c-reload-container="true">
+    <label for="titulo">Título:</label>
+    <input type="text" name="tituloLivro" id="titulo" {% if livro %} value="{{ livro.titulo }}" {% endif %} required>
+
+    <label for="autor">Autor:</label>
+    <input type="text" name="autorLivro" id="autor" {% if livro %} value="{{ livro.autor }}" {% endif %} required>
+
+    <label for="isbn">ISBN:</label>
+    <input type="text" name="ISBN" id="isbn" {% if livro %} value="{{ livro.ISBN }}" {% endif %} required>
+
+    <label for="dataLancamento">Data de Lançamento:</label>
+    <input type="date" name="dataLancamento" id="dataLancamento" {% if livro %} value="{{ livro.dataLancamento }}" {% endif %} required>
+
+    <button class="cadastrar" type="submit">{% if livro %}Salvar{% else %}Cadastrar{% endif %}</button>
+</form>

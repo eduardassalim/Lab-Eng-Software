@@ -1,0 +1,11 @@
+<tr id="cliente-{{ cliente.id }}">
+    <th scope="row">{{ cliente.id }}</th>
+    <td>{{ cliente.nome }}</td>
+    <td>{{ cliente.email }}</td>
+    <td>{{ '({}) {}-{}'.format(cliente.telefone[:2], cliente.telefone[2:7], cliente.telefone[7:]) }}</td>
+    <td>
+        <button id="info" c-get="{{ url_for('cliente.detalhe_cliente', id=cliente.id) }}" c-target="#exibir-cliente" data-bs-toggle="modal" data-bs-target="#clienteModal">Info</button>
+        <button id="editar" c-get="{{ url_for('cliente.editar_cliente', id=cliente.id) }}" c-target="#form-cliente">Editar</button>
+        <button id="excluir" c-delete="{{ url_for('cliente.deletar_cliente', id=cliente.id) }}" c-remove-closest="tr">Excluir</button>
+    </td>
+</tr>
