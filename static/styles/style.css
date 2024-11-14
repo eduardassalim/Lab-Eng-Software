@@ -121,6 +121,19 @@ span:hover{
     border-radius: 0% ;
 }
 
+#info{
+    background-color: #6b6f7a;
+    color: rgb(0, 0, 0);
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#info button:hover{
+    background-color: #4f525a;
+}
+
 #editar{
     background-color: #3f65e2;
     color: rgb(0, 0, 0);
