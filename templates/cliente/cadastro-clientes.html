@@ -1,4 +1,4 @@
-<h1> {% if cliente %}Edição de Cliente{% else %}Cadastro de Cliente{% endif %}</h1>
+<h2>{% if cliente %}Edição de Cliente{% else %}Cadastro de Cliente{% endif %}</h2>
 <form class="c-form" 
     action= "{% if cliente %}{{ url_for('cliente.atualizar_cliente', id=cliente.id) }}{% else %}{{ url_for('cliente.inserir_cliente') }}{% endif %}"
 
@@ -16,10 +16,10 @@
     <input type="text" name="nomeCliente" id="nome" {% if cliente %} value="{{ cliente.nome }}" {% endif %} required>
 
     <label for="email">Email</label>
-    <input type="email" name="emailCliente" id="email" {% if cliente %} value="{{ cliente.email }}" {% endif %} required>            
+    <input type="email" name="emailCliente" id="email" {% if cliente %} value="{{ cliente.email }}" {% endif %} required>
 
     <label for="telefone">Telefone</label>
     <input type="tel" name="telefoneCliente" id="telefone" {% if cliente %} value="{{ cliente.telefone }}" {% endif %} required>
 
-    <button type="submit">{% if cliente %}Salvar{% else %}Cadastrar{% endif %}</button>
+    <button class="cadastrar" type="submit">{% if cliente %}Salvar{% else %}Cadastrar{% endif %}</button>
 </form>

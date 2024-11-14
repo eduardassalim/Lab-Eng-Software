@@ -11,6 +11,7 @@ html, body {
     background-color: #4d8f58;
     padding: 15px;
     margin-bottom: 20px;
+    display: flex;
 }
 
 .navbar ul {
@@ -46,6 +47,15 @@ h1 {
     margin-bottom: 20px;
 }
 
+h2 {
+    font-size: 0.8em;
+    margin-bottom: 20px;
+}
+
+.titulo_secao {
+    text-align: center;
+}
+
 label {
     display: block;
     margin: 10px 0 5px;
@@ -60,22 +70,18 @@ select {
     border-radius: 5px;
 }
 
-button {
+.cadastrar {
     background-color: #28a745;
     color: white;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 10px;
 }
 
-button:hover {
+.cadastrar:hover {
     background-color: #218838;
-}
-
-#error_message {
-    color: red;
-    margin-top: 0px;
 }
 
 span{
@@ -112,6 +118,19 @@ span:hover{
     border-radius: 0% ;
 }
 
+#info{
+    background-color: #777c8d;
+    color: rgb(0, 0, 0);
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#info button:hover{
+    background-color: #51545e;
+}
+
 #editar{
     background-color: #3f65e2;
     color: rgb(0, 0, 0);
@@ -124,6 +143,7 @@ span:hover{
 #editar button:hover{
     background-color: #5479f1;
 }
+
 #excluir{
     background-color: #f52222;
     color: rgb(0, 0, 0);

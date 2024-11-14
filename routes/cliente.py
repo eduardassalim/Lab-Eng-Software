@@ -11,23 +11,15 @@ def lista_clientes():
 
 # /clientes/ (POST) - inserir cliente no servidor
 @cliente_route.route('/', methods = ['POST'])
-def inserir_cliente():
-    error = False
-        
+def inserir_cliente():     
     dados = request.json # atribuindo os dados do request para uma variável
     
-    # verificando se o email do request já está cadastrado no banco de dados
-    for cliente in Cliente.select():
-        if cliente.email == dados['emailCliente']:
-            error = True
-                
-    # se não houver erro irá realizar a inserção no banco de dados
-    if not error:
-        novo_cliente = Cliente.create(
-            nome = dados['nomeCliente'],
-            email = dados['emailCliente'],
-            telefone = dados['telefoneCliente']
-        )
+    # criando cliente no banco de dados        
+    novo_cliente = Cliente.create(
+        nome = dados['nomeCliente'],
+        email = dados['emailCliente'],
+        telefone = dados['telefoneCliente']
+    )
         
     return render_template('cliente/item_cliente.html', cliente = novo_cliente)
     

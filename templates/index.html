@@ -19,21 +19,43 @@
         </ul>
     </nav>
     
-    <div class="container">
-        <div id="form-cliente" c-container="{{ url_for('cliente.form_cliente')}}"></div>
-        <hr>
-        <div c-container="{{ url_for('cliente.lista_clientes') }}"></div>
-    </div>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Detalhe do cliente</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="container" id="secao_cliente">
+        <h1 class="titulo_secao">Cliente</h1>
+        <div>
+            <div id="form-cliente" c-container="{{ url_for('cliente.form_cliente')}}"></div>
+            <hr>
+            <div c-container="{{ url_for('cliente.lista_clientes') }}"></div>
+        </div>
+        <div class="modal fade" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="clienteModalLabel">Detalhe do cliente</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="exibir-cliente"></div>
+              </div>
             </div>
-            <div class="modal-body" id="exibir-cliente"></div>
-          </div>
+        </div>
+    </div>
+    
+    <div class="container" id="secao_atendente">
+        <h1 class="titulo_secao">Atendente</h1>
+        <div>
+            <div id="form-atendente" c-container="{{ url_for('atendente.form_atendente')}}"></div>
+            <hr>
+            <div c-container="{{ url_for('atendente.lista_atendentes') }}"></div>
+        </div>
+        <div class="modal fade" id="atendenteModal" tabindex="-1" aria-labelledby="atendenteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="atendenteModalLabel">Detalhe do atendente</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="exibir-atendente"></div>
+              </div>
+            </div>
         </div>
     </div>
     

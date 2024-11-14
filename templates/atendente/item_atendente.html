@@ -1,0 +1,11 @@
+<tr id="atendente-{{ atendente.id }}">
+    <th scope="row">{{ atendente.id }}</th>
+    <td>{{ atendente.nome }}</td>
+    <td>{{ atendente.email }}</td>
+    <td>{{ atendente.cargo }}</td>
+    <td>
+        <button id="info" c-get="{{ url_for('atendente.detalhe_atendente', id=atendente.id) }}" c-target="#exibir-atendente" data-bs-toggle="modal" data-bs-target="#atendenteModal">Info</button>
+        <button id="editar" c-get="{{ url_for('atendente.editar_atendente', id=atendente.id) }}" c-target="#form-atendente">Editar</button>
+        <button id="excluir" c-delete="{{ url_for('atendente.deletar_atendente', id=atendente.id) }}" c-remove-closest="tr">Excluir</button>
+    </td>
+</tr>

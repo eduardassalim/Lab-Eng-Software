@@ -1,0 +1,39 @@
+<h1>{% if atendente %}Edição de Atendente{% else %}Cadastro de Atendente{% endif %}</h1>
+<form class="c-form" 
+    action= "{% if atendente %}{{ url_for('atendente.atualizar_atendente', id=atendente.id) }}{% else %}{{ url_for('atendente.inserir_atendente') }}{% endif %}"
+
+    method="{% if atendente %}PUT{% else %}POST{% endif %}"
+
+    {% if atendente %}
+        c-swap="#atendente-{{ atendente.id }}"
+    {% else %}
+        c-append="#lista-atendentes"
+    {% endif %}
+
+    c-reload-container="true">
+
+    <label for="nomeAtendente">Nome:</label>
+    <input type="text" name="nomeAtendente" id="nomeAtendente" {% if atendente %} value="{{ atendente.nome }}" {% endif %} required>
+
+    <label for="cargo" >Cargo:</label>
+    <select name="cargoAtendente" {% if atendente %} value="{{ atendente.cargo }}" {% endif %}>Selecione
+        <option value="Atendente">Atendente</option>
+        <option value="Gerente">Gerente</option>
+        <option value="Administrador">Administrador</option>
+    </select>     
+
+    <hr>
+
+    <h2>{% if atendente %}Editar Login{% else %}Criar Login{% endif %}</h2>
+
+    <label for="emailAtendente">Email:</label>
+    <input type="email" name="emailAtendente" id="emailAtendente" {% if atendente %} value="{{ atendente.email }}" {% endif %} required>
+
+    <label for="passwordAtendente">Senha:</label>
+    <input type="password" name="passwordAtendente" id="passwordAtendente" required>
+
+    <label for="passwordAtendente">Digite a senha novamente:</label>
+    <input type="password" name="passwordAtendente" id="passwordAtendente" required>
+
+    <button class="cadastrar" type="submit">{% if atendente %}Salvar{% else %}Cadastrar{% endif %}</button>
+</form>
