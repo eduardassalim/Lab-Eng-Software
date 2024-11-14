@@ -59,6 +59,26 @@
         </div>
     </div>
     
+    <div class="container" id="secao_editora">
+        <h1 class="titulo_secao">Editora</h1>
+        <div>
+            <div id="form-editora" c-container="{{ url_for('editora.form_editora')}}"></div>
+            <hr>
+            <div c-container="{{ url_for('editora.lista_editoras') }}"></div>
+        </div>
+        <div class="modal fade" id="editoraModal" tabindex="-1" aria-labelledby="editoraModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="editoraModalLabel">Detalhe do editora</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="exibir-editora"></div>
+              </div>
+            </div>
+        </div>
+    </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/cru.js') }}"></script>
 </body>

@@ -1,0 +1,12 @@
+<tr id="editora-{{ editora.id }}">
+    <th scope="row">{{ editora.id }}</th>
+    <td>{{ editora.nome }}</td>
+    <td>{{ editora.endereco }}</td>
+    <td>{{ '({}) {}-{}'.format(editora.telefone[:2], editora.telefone[2:7], editora.telefone[7:]) }}</td>
+    <td>{{ '{}.{}.{}-{}/{}'.format(editora.CNPJ[:2], editora.CNPJ[2:5], editora.CNPJ[5:8], editora.CNPJ[8:12], editora.CNPJ[12:14]) }}</td>
+    <td>
+        <button id="info" c-get="{{ url_for('editora.detalhe_editora', id=editora.id) }}" c-target="#exibir-editora" data-bs-toggle="modal" data-bs-target="#editoraModal">Info</button>
+        <button id="editar" c-get="{{ url_for('editora.editar_editora', id=editora.id) }}" c-target="#form-editora">Editar</button>
+        <button id="excluir" c-delete="{{ url_for('editora.deletar_editora', id=editora.id) }}" c-remove-closest="tr">Excluir</button>
+    </td>
+</tr>
