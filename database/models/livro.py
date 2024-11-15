@@ -6,6 +6,7 @@ class Livro(Model):
     titulo = CharField()
     autor = CharField()
     ISBN = CharField()
+    editora = CharField()
     data_lancamento = DateTimeField()
     data_registro = DateTimeField(default = datetime.datetime.now)
     

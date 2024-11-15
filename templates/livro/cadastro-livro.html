@@ -17,6 +17,13 @@
     <label for="autor">Autor:</label>
     <input type="text" name="autorLivro" id="autor" {% if livro %} value="{{ livro.autor }}" {% endif %} required>
 
+    <label for="editora" >Editora:</label>
+    <select name="editoraLivro">Selecione
+        {% for editora in editoras %}
+            <option value="{{ editora.nome }}">{{ editora.nome }}</option>
+        {% endfor %}
+    </select> 
+
     <label for="isbn">ISBN:</label>
     <input type="text" name="ISBN" id="isbn" {% if livro %} value="{{ livro.ISBN }}" {% endif %} required>
 

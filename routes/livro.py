@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request
 from datetime import datetime
 
 from database.models.livro import Livro
+from database.models.editora import Editora
 
 livro_route = Blueprint('livro', __name__)
 
@@ -21,6 +22,7 @@ def inserir_livro():
     novo_livro = Livro.create(
         titulo = dados['tituloLivro'],
         autor = dados['autorLivro'],
+        editora = dados['editoraLivro'],
         ISBN = dados['ISBN'],
         data_lancamento = data
     )
@@ -30,7 +32,7 @@ def inserir_livro():
 # /livros/new (GET) - renderizar formulario de criação do livro
 @livro_route.route('/new')
 def form_livro():
-    return render_template('livro/cadastro-livro.html')
+    return render_template('livro/cadastro-livro.html', editoras = Editora.select())
 
 # /livros/<id> (GET) - obter os dados de um livro
 @livro_route.route('/<int:id>')
@@ -54,6 +56,7 @@ def atualizar_livro(id):
     livro_editado = Livro.get_by_id(id)
     livro_editado.titulo = dados['tituloLivro']
     livro_editado.autor = dados['autorLivro']
+    livro_editado.editora = dados['editoraLivro']
     livro_editado.ISBN = dados['ISBN']
     livro_editado.data_lancamento = data
     

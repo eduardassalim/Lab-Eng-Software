@@ -2,6 +2,7 @@
     <th scope="row">{{ livro.id }}</th>
     <td>{{ livro.titulo }}</td>
     <td>{{ livro.autor }}</td>
+    <td>{{ livro.editora }}</td>
     <td>{{ '{}-{}-{}-{}-{}'.format(livro.ISBN[:3], livro.ISBN[3:5], livro.ISBN[5:8], livro.ISBN[8:12], livro.ISBN[12:]) }}</td>
     <td>{{ livro.data_lancamento.strftime("%d/%m/%Y") }}</td>
     <td>
