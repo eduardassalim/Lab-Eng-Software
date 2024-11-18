@@ -7,7 +7,22 @@ cliente_route = Blueprint('cliente', __name__)
 # /clientes/ (GET) - listar os clientes
 @cliente_route.route('/')
 def lista_clientes():
-    return render_template('cliente/lista-clientes.html', clientes = Cliente.select().order_by(Cliente.id))
+    clientes = Cliente.select().order_by(Cliente.id)
+    
+    filtro_nome = request.args.get("filtro_nome", "").strip()
+    filtro_email = request.args.get("filtro_email", "").strip()
+    filtro_telefone = request.args.get("filtro_telefone", "").strip()
+    
+    if filtro_nome:
+        clientes = clientes.where(Cliente.nome.contains(filtro_nome))
+    
+    if filtro_email:
+        clientes = clientes.where(Cliente.email.contains(filtro_email))
+    
+    if filtro_telefone:
+        clientes = clientes.where(Cliente.telefone.contains(filtro_telefone))
+        
+    return render_template('cliente/lista-clientes.html', clientes = clientes)
 
 # /clientes/ (POST) - inserir cliente no servidor
 @cliente_route.route('/', methods = ['POST'])
