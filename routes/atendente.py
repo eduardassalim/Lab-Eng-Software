@@ -7,7 +7,24 @@ atendente_route = Blueprint('atendente', __name__)
 # /atendentes/ (GET) - listar os atendentes
 @atendente_route.route('/')
 def lista_atendentes():
-    return render_template('atendente/lista-atendentes.html', atendentes = Atendente.select().order_by(Atendente.id))
+    atendentes = Atendente.select().order_by(Atendente.id)
+    
+    # atribuindo filtros do request para variáveis
+    filtro_nome = request.args.get("filtro_nome", "").strip()
+    filtro_email = request.args.get("filtro_email", "").strip()
+    filtro_cargo = request.args.get("filtro_cargo", "").strip()
+    
+    # testando se existem os filtros e adicionando-os a query de listagem
+    if filtro_nome:
+        atendentes = atendentes.where(Atendente.nome.contains(filtro_nome))
+    
+    if filtro_email:
+        atendentes = atendentes.where(Atendente.email.contains(filtro_email))
+    
+    if filtro_cargo:
+        atendentes = atendentes.where(Atendente.cargo.contains(filtro_cargo))
+        
+    return render_template('atendente/lista-atendentes.html', atendentes = atendentes)
 
 # /atendentes/ (POST) - inserir atendente no servidor
 @atendente_route.route('/', methods = ['POST'])

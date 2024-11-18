@@ -9,10 +9,12 @@ cliente_route = Blueprint('cliente', __name__)
 def lista_clientes():
     clientes = Cliente.select().order_by(Cliente.id)
     
+    # atribuindo filtros do request para variáveis
     filtro_nome = request.args.get("filtro_nome", "").strip()
     filtro_email = request.args.get("filtro_email", "").strip()
     filtro_telefone = request.args.get("filtro_telefone", "").strip()
     
+    # testando se existem os filtros e adicionando-os a query de listagem
     if filtro_nome:
         clientes = clientes.where(Cliente.nome.contains(filtro_nome))
     
