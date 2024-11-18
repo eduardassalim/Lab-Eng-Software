@@ -9,7 +9,44 @@ livro_route = Blueprint('livro', __name__)
 # /livros/ (GET) - listar os livros
 @livro_route.route('/')
 def lista_livros():
-    return render_template('livro/lista-livros.html', livros = Livro.select().order_by(Livro.id))
+    livros = Livro.select().order_by(Livro.id)
+    
+    # atribuindo filtros do request para variáveis
+    filtro_titulo = request.args.get("filtro_titulo", "").strip()
+    filtro_autor = request.args.get("filtro_autor", "").strip()
+    filtro_isbn = request.args.get("filtro_isbn", "").strip()
+    filtro_editora = request.args.get("filtro_editora", "").strip()
+    filtro_inicio = request.args.get("filtro_inicio", "").strip()
+    filtro_fim = request.args.get("filtro_fim", "").strip()
+    
+    # testando se existem os filtros e adicionando-os a query de listagem
+    if filtro_titulo:
+        livros = livros.where(Livro.titulo.contains(filtro_titulo))
+    
+    if filtro_autor:
+        livros = livros.where(Livro.autor.contains(filtro_autor))
+    
+    if filtro_isbn:
+        livros = livros.where(Livro.ISBN.contains(filtro_isbn))
+    
+    if filtro_editora:
+        livros = livros.where(Livro.editora.contains(filtro_editora))
+        
+    if filtro_inicio:
+        try:
+            data_inicio = datetime.strptime(filtro_inicio, '%Y-%m-%d')
+            livros = livros.where(Livro.data_lancamento >= data_inicio)
+        except ValueError:
+            pass # se a data não estiver na formatação correta não realiza o filtro
+    
+    if filtro_fim:
+        try:
+            data_fim = datetime.strptime(filtro_fim, '%Y-%m-%d')
+            livros = livros.where(Livro.data_lancamento <= data_fim)
+        except ValueError:
+            pass # se a data não estiver na formatação correta não realiza o filtro
+                
+    return render_template('livro/lista-livros.html', livros = livros)
 
 # /livros/ (POST) - inserir livro no servidor
 @livro_route.route('/', methods = ['POST'])
