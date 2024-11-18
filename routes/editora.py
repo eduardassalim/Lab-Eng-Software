@@ -7,7 +7,28 @@ editora_route = Blueprint('editora', __name__)
 # /editoras/ (GET) - listar as editoras
 @editora_route.route('/')
 def lista_editoras():
-    return render_template('editora/lista-editoras.html', editoras = Editora.select().order_by(Editora.id))
+    editoras = Editora.select().order_by(Editora.id)
+    
+    # atribuindo filtros do request para variáveis
+    filtro_nome = request.args.get("filtro_nome", "").strip()
+    filtro_endereco = request.args.get("filtro_endereco", "").strip()
+    filtro_telefone = request.args.get("filtro_telefone", "").strip()
+    filtro_cnpj = request.args.get("filtro_cnpj", "").strip()
+    
+    # testando se existem os filtros e adicionando-os a query de listagem
+    if filtro_nome:
+        editoras = editoras.where(Editora.nome.contains(filtro_nome))
+    
+    if filtro_endereco:
+        editoras = editoras.where(Editora.endereco.contains(filtro_endereco))
+    
+    if filtro_telefone:
+        editoras = editoras.where(Editora.telefone.contains(filtro_telefone))
+    
+    if filtro_cnpj:
+        editoras = editoras.where(Editora.CNPJ.contains(filtro_cnpj))
+        
+    return render_template('editora/lista-editoras.html', editoras = editoras)
 
 # /editoras/ (POST) - inserir editora no servidor
 @editora_route.route('/', methods = ['POST'])
