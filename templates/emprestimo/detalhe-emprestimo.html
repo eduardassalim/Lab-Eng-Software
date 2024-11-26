@@ -1,0 +1,8 @@
+<ul>
+    <li>ID: {{ emprestimo.id }}</li>
+    <li>Cliente: {{ emprestimo.cliente }} - {{ emprestimo.cliente.nome }}</li>
+    <li>Livro: {{ emprestimo.livro}}  - {{ emprestimo.livro.titulo }}</li>
+    <li>Data de Empréstimo: {{ emprestimo.data_emprestimo.strftime("%d/%m/%Y") }}</li>
+    <li>Data de Devolução: {{ emprestimo.data_devolucao.strftime("%d/%m/%Y") }}</li>
+    <li>Data de Registro: {{ emprestimo.data_registro.strftime("%d/%m/%Y") }}</li>
+</ul>

@@ -1,0 +1,41 @@
+<h2>{% if emprestimo %}Edição de Empréstimo{% else %}Cadastro de Empréstimo{% endif %}</h2>
+
+<form class="c-form" 
+    action= "{% if emprestimo %}{{ url_for('emprestimo.atualizar_emprestimo', id=emprestimo.id) }}{% else %}{{ url_for('emprestimo.inserir_emprestimo') }}{% endif %}"
+
+    method="{% if emprestimo %}PUT{% else %}POST{% endif %}"
+
+    {% if emprestimo %}
+        c-swap="#emprestimo-{{ emprestimo.id }}"
+    {% else %}
+        c-append="#lista-emprestimos"
+    {% endif %}
+
+    c-reload-container="true">
+
+    <label for="cliente">Cliente</label>
+    <select name="idCliente" id="cliente" required>
+        {% for cliente in clientes %}
+            <option value="{{ cliente.id }}" {% if emprestimo and emprestimo.cliente.id == cliente.id %} selected {% endif %}>
+                {{ cliente.nome }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="dataEmprestimo">Data do emprestimo</label>
+    <input type="date" name="dataEmprestimo" id="dataEmprestimo" {% if emprestimo %} value="{{ emprestimo.data_emprestimo.strftime('%Y-%m-%d') }}" {% endif %}>            
+
+    <label for="dataDevolucao">Data da devolução</label>
+    <input type="date" name="dataDevolucao" id="dataDevolucao" {% if emprestimo %} value="{{ emprestimo.data_devolucao.strftime('%Y-%m-%d') }}" {% endif %}>
+
+    <!-- <label for="livro">Livro:</label>
+    <input type="text" name="livro" id="livro" placeholder="Insira o nome do livro desejado" required> -->
+
+        <!-- VERSÃO COM      -->
+    <label for="livro">Livro</label>
+    <select name="idLivro" id="livro" required>
+        {% for livro in livros %}
+            <option value="{{ livro.id }}" {% if emprestimo and emprestimo.livro.id == livro.id %} selected {% endif %}>{{ livro.titulo }}</option>
+        {% endfor %}
+    </select>
+    <button class="cadastrar" type="submit">{% if emprestimo %}Salvar{% else %}Cadastrar{% endif %}</button>
+</form>

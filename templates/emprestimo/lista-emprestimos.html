@@ -1,0 +1,17 @@
+<h2>Lista de Emprestimos</h2>
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Livro</th>
+        <th scope="col">Data de Devolução</th>
+        <th scope="col">Ações</th>
+        </tr>
+    </thead>
+    <tbody id="lista-emprestimos">
+        {% for emprestimo in emprestimos %}
+            {% include 'emprestimo/item_emprestimo.html' %}
+        {% endfor %}
+    </tbody>
+</table>

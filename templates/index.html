@@ -16,6 +16,7 @@
             <li><a href="#" target="_self">Clientes</a></li>
             <li><a href="#" target="_self">Editoras</a></li>
             <li><a href="#" target="_self">Livros</a></li>
+            <li><a href="#" target="_self">Empréstimos</a></li>
         </ul>
     </nav>
     
@@ -94,6 +95,26 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="exibir-livro"></div>
+              </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container" id="secao_emprestimo">
+        <h1 class="titulo_secao">Empréstimos</h1>
+        <div>
+            <div id="form-emprestimo" c-container="{{ url_for('emprestimo.form_emprestimo')}}"></div>
+            <hr>
+            <div c-container="{{ url_for('emprestimo.lista_emprestimos') }}"></div>
+        </div>
+        <div class="modal fade" id="emprestimoModal" tabindex="-1" aria-labelledby="emprestimoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="emprestimoModalLabel">Detalhe do empréstimo</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="exibir-emprestimo"></div>
               </div>
             </div>
         </div>
