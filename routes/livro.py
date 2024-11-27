@@ -81,7 +81,7 @@ def detalhe_livro(id):
 @livro_route.route('/<int:id>/edit')
 def editar_livro(id):
     livro = Livro.get_by_id(id)
-    return render_template("livro/cadastro-livro.html", livro = livro)
+    return render_template("livro/cadastro-livro.html", livro = livro, editoras = Editora.select())
 
 # /livros/<id>/update (PUT) - atualizar os dados do livro
 @livro_route.route('/<int:id>/update', methods = ['PUT'])

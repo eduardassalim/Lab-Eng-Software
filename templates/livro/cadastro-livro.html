@@ -1,4 +1,4 @@
-<h1>Cadastro de Livro</h1>
+<h1>{% if livro %}Edição de Livro{% else %}Cadastro de Livro{% endif %}</h1>
 <form class="c-form" 
     action= "{% if livro %}{{ url_for('livro.atualizar_livro', id=livro.id) }}{% else %}{{ url_for('livro.inserir_livro') }}{% endif %}"
 
@@ -20,7 +20,7 @@
     <label for="editora" >Editora:</label>
     <select name="editoraLivro">Selecione
         {% for editora in editoras %}
-            <option value="{{ editora.nome }}">{{ editora.nome }}</option>
+            <option value="{{ editora.id }}" {% if livro and livro.editora.id == editora.id %} selected {% endif %}>{{ editora.nome }}</option>
         {% endfor %}
     </select> 
 
@@ -28,7 +28,7 @@
     <input type="text" name="ISBN" id="isbn" {% if livro %} value="{{ livro.ISBN }}" {% endif %} required>
 
     <label for="dataLancamento">Data de Lançamento:</label>
-    <input type="date" name="dataLancamento" id="dataLancamento" {% if livro %} value="{{ livro.dataLancamento }}" {% endif %} required>
+    <input type="date" name="dataLancamento" id="dataLancamento" {% if livro %} value="{{ livro.data_lancamento.strftime('%Y-%m-%d') }}" {% endif %} required>
 
     <button class="cadastrar" type="submit">{% if livro %}Salvar{% else %}Cadastrar{% endif %}</button>
 </form>
