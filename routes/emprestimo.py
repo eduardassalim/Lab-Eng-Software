@@ -7,8 +7,13 @@ from database.models.emprestimo import Emprestimo
 
 emprestimo_route = Blueprint('emprestimo', __name__)
 
-# /emprestimos/ (GET) - listar os emprestimos
+# /emprestimos/ (GET) - carregar a página principal dos emprestimos
 @emprestimo_route.route('/')
+def home_emprestimos():
+    return render_template('emprestimo/home-emprestimo.html')
+
+# /emprestimos/list (GET) - listar os emprestimos
+@emprestimo_route.route('/list')
 def lista_emprestimos():
     emprestimos = Emprestimo.select().order_by(Emprestimo.id)
     

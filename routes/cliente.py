@@ -4,8 +4,13 @@ from database.models.cliente import Cliente
 
 cliente_route = Blueprint('cliente', __name__)
 
-# /clientes/ (GET) - listar os clientes
+# /clientes/ (GET) - carregar a página principal dos clientes
 @cliente_route.route('/')
+def home_clientes():
+    return render_template('cliente/home-cliente.html')
+
+# /clientes/list (GET) - listar os clientes
+@cliente_route.route('/list')
 def lista_clientes():
     clientes = Cliente.select().order_by(Cliente.id)
     

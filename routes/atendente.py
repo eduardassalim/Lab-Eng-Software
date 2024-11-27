@@ -4,8 +4,13 @@ from database.models.atendente import Atendente
 
 atendente_route = Blueprint('atendente', __name__)
 
-# /atendentes/ (GET) - listar os atendentes
+# /atendentes/ (GET) - carregar a página principal dos atendentes
 @atendente_route.route('/')
+def home_atendentes():
+    return render_template('atendente/home-atendente.html')
+
+# /atendentes/list (GET) - listar os atendentes
+@atendente_route.route('/list')
 def lista_atendentes():
     atendentes = Atendente.select().order_by(Atendente.id)
     

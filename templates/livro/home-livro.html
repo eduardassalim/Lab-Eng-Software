@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Livro{% endblock %}
+
+{% block content %}
+    <h1 class="titulo_secao">Livro</h1>
+    <div>
+        <div id="form-livro" c-container="{{ url_for('livro.form_livro')}}"></div>
+        <hr>
+        <div c-container="{{ url_for('livro.lista_livros') }}"></div>
+    </div>
+    <div class="modal fade" id="livroModal" tabindex="-1" aria-labelledby="livroModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="livroModalLabel">Detalhe do livro</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="exibir-livro"></div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

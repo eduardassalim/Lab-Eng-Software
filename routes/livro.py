@@ -6,8 +6,13 @@ from database.models.editora import Editora
 
 livro_route = Blueprint('livro', __name__)
 
-# /livros/ (GET) - listar os livros
+# /livros/ (GET) - carregar a página principal dos livros
 @livro_route.route('/')
+def home_livros():
+    return render_template('livro/home-livro.html')
+
+# /livros/list (GET) - listar os livros
+@livro_route.route('/list')
 def lista_livros():
     livros = Livro.select().order_by(Livro.id)
     

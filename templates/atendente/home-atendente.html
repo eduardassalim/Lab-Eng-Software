@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Atendente{% endblock %}
+
+{% block content %}
+    <h1 class="titulo_secao">Atendente</h1>
+    <div>
+        <div id="form-atendente" c-container="{{ url_for('atendente.form_atendente')}}"></div>
+        <hr>
+        <div c-container="{{ url_for('atendente.lista_atendentes') }}"></div>
+    </div>
+    <div class="modal fade" id="atendenteModal" tabindex="-1" aria-labelledby="atendenteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="atendenteModalLabel">Detalhe do atendente</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="exibir-atendente"></div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

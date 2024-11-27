@@ -4,8 +4,13 @@ from database.models.editora import Editora
 
 editora_route = Blueprint('editora', __name__)
 
-# /editoras/ (GET) - listar as editoras
+# /editoras/ (GET) - carregar a página principal das editoras
 @editora_route.route('/')
+def home_editoras():
+    return render_template('editora/home-editora.html')
+
+# /editoras/list (GET) - listar as editoras
+@editora_route.route('/list')
 def lista_editoras():
     editoras = Editora.select().order_by(Editora.id)
     
