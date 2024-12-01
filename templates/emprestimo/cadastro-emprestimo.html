@@ -22,10 +22,10 @@
     </select>
 
     <label for="dataEmprestimo">Data do emprestimo</label>
-    <input type="date" name="dataEmprestimo" id="dataEmprestimo" {% if emprestimo %} value="{{ emprestimo.data_emprestimo.strftime('%Y-%m-%d') }}" {% endif %}>            
+    <input type="text" name="dataEmprestimo" id="dataEmprestimo"placeholder="Data do Empréstimo"  oninput="aplicarMascaraData(this)" maxlength="8" {% if emprestimo %} value="{{ emprestimo.data_emprestimo.strftime('%Y-%m-%d') }}" {% endif %}>            
 
     <label for="dataDevolucao">Data da devolução</label>
-    <input type="date" name="dataDevolucao" id="dataDevolucao" {% if emprestimo %} value="{{ emprestimo.data_devolucao.strftime('%Y-%m-%d') }}" {% endif %}>
+    <input type="text" name="dataDevolucao" id="dataDevolucao" placeholder="Data de Devolução"  oninput="aplicarMascaraData(this)" maxlength="8"{% if emprestimo %} value="{{ emprestimo.data_devolucao.strftime('%Y-%m-%d') }}" {% endif %}>
 
     <!-- <label for="livro">Livro:</label>
     <input type="text" name="livro" id="livro" placeholder="Insira o nome do livro desejado" required> -->
