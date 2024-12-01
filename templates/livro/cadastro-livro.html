@@ -12,10 +12,10 @@
 
     c-reload-container="true">
     <label for="titulo">Título:</label>
-    <input type="text" name="tituloLivro" id="titulo" {% if livro %} value="{{ livro.titulo }}" {% endif %} required>
+    <input type="text" name="tituloLivro" id="titulo" placeholder="Título do Livro" {% if livro %} value="{{ livro.titulo }}" {% endif %} required>
 
     <label for="autor">Autor:</label>
-    <input type="text" name="autorLivro" id="autor" {% if livro %} value="{{ livro.autor }}" {% endif %} required>
+    <input type="text" name="autorLivro" id="autor" placeholder="Autor do Livro"  {% if livro %} value="{{ livro.autor }}" {% endif %} required>
 
     <label for="editora" >Editora:</label>
     <select name="editoraLivro">Selecione
@@ -25,10 +25,10 @@
     </select> 
 
     <label for="isbn">ISBN:</label>
-    <input type="text" name="ISBN" id="isbn" {% if livro %} value="{{ livro.ISBN }}" {% endif %} required>
+    <input type="text" name="ISBN" id="isbn"  placeholder="ISBN" oninput="aplicarMascaraISBN(this)" maxlength="17" oninput="aplicarMascaraData(this)" maxlength="8" {% if livro %} value="{{ livro.ISBN }}" {% endif %} required>
 
     <label for="dataLancamento">Data de Lançamento:</label>
-    <input type="date" name="dataLancamento" id="dataLancamento" {% if livro %} value="{{ livro.data_lancamento.strftime('%Y-%m-%d') }}" {% endif %} required>
+    <input type="text" name="dataLancamento" id="dataLancamento" placeholder="Data de Lançamento" oninput="aplicarMascaraData(this)" maxlength="8" {% if livro %} value="{{ livro.data_lancamento.strftime('%Y-%m-%d') }}" {% endif %} required>
 
     <button class="cadastrar" type="submit">{% if livro %}Salvar{% else %}Cadastrar{% endif %}</button>
 </form>
