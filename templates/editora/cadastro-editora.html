@@ -13,16 +13,16 @@
     c-reload-container="true">
 
     <label for="nomeEditora">Nome:</label>
-    <input type="text" name="nomeEditora" id="nomeEditora" {% if editora %} value="{{ editora.nome }}" {% endif %} required>
+    <input type="text" name="nomeEditora" id="nomeEditora" placeholder="Nome" {% if editora %} value="{{ editora.nome }}" {% endif %} required>
 
     <label for="endereco">Endereço:</label>
-    <input type="text" name="enderecoEditora" id="endereco" {% if editora %} value="{{ editora.endereco }}" {% endif %} required>
+    <input type="text" name="enderecoEditora" id="endereco" placeholder="Endereço" {% if editora %} value="{{ editora.endereco }}" {% endif %} required>
 
     <label for="telefoneEditora">Telefone:</label>
-    <input type="tel" name="telefoneEditora" id="telefoneEditora" {% if editora %} value="{{ editora.telefone }}" {% endif %} required>
+    <input type="tel" name="telefoneEditora" id="telefoneEditora" placeholder="Telefone" oninput="aplicarMascaraTelefone(this)" maxlength="15" {% if editora %} value="{{ editora.telefone }}" {% endif %} required>
 
     <label for="cnpjEditora">CNPJ:</label>
-    <input type="cnpj" name="cnpjEditora" id="cnpjEditora" {% if editora %} value="{{ editora.CNPJ }}" {% endif %} required>
+    <input type="cnpj" name="cnpjEditora" id="cnpjEditora" placeholder="CNPJ" oninput="aplicarMascaraCNPJ(this)" maxlength="18" {% if editora %} value="{{ editora.CNPJ }}" {% endif %} required>
 
     <button class="cadastrar" type="submit">{% if editora %}Salvar{% else %}Cadastrar{% endif %}</button>
 </form>
