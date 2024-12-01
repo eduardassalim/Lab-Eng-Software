@@ -13,13 +13,13 @@
     c-reload-container="true">
 
     <label for="nome">Nome</label>
-    <input type="text" name="nomeCliente" id="nome" {% if cliente %} value="{{ cliente.nome }}" {% endif %} required>
+    <input type="text" name="nomeCliente" id="nome" placeholder="Nome" {% if cliente %} value="{{ cliente.nome }}" {% endif %} required>
 
     <label for="email">Email</label>
-    <input type="email" name="emailCliente" id="email" {% if cliente %} value="{{ cliente.email }}" {% endif %} required>
+    <input type="email" name="emailCliente" id="email" placeholder="Email" {% if cliente %} value="{{ cliente.email }}" {% endif %} required>
 
     <label for="telefone">Telefone</label>
-    <input type="tel" name="telefoneCliente" id="telefone" {% if cliente %} value="{{ cliente.telefone }}" {% endif %} required>
+    <input type="tel" name="telefoneCliente" id="telefone" placeholder="Telefone" oninput="aplicarMascaraTelefone(this)" maxlength="15" {% if cliente %} value="{{ cliente.telefone }}" {% endif %} required>
 
     <button class="cadastrar" type="submit">{% if cliente %}Salvar{% else %}Cadastrar{% endif %}</button>
 </form>
