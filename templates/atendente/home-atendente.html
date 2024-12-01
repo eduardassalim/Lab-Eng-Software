@@ -2,6 +2,15 @@
 
 {% block title %}Atendente{% endblock %}
 
+{% block filtro %}
+<select  id="filtro" class="filtro" name="selectPesquisa">
+    <option value="" disabled selected>Filtro</option>
+    <option value="nomeAtendente">Nome</option>
+    <option value="cargo">Cargo</option>
+    <option value="login">Login</option>
+</select>
+{% endblock %}
+
 {% block content %}
     <h1 class="titulo_secao">Atendente</h1>
     <div>
