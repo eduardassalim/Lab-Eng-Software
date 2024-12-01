@@ -1,38 +1,82 @@
 html, body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #ffffff;
     width: 100%;
     height: 100%;
     margin: 0;	
 }
 
-.navbar {
-    width: 100%;
-    background-color: #4d8f58;
-    padding: 15px;
-    margin-bottom: 20px;
+nav {
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between; /* Distribute space between logo, nav links, and search */
+    align-items: center;
+    padding: 10px 10px;
+    background-color: #636d77;
+    color: #f4f4f4;
+}
+
+nav .logo img {
+    margin-left: 30px;
+    width: 110px;
+    height: 105px;
+}
+
+.nav-links {
+    list-style-type: none;
+    text-align: center;    
+}
+
+nav li {
+    text-decoration: none;
+    margin: 0 15px;
+    margin-top: 35px;
+    list-style-type: none;
+}
+nav ul{
     display: flex;
 }
 
-.navbar ul {
-    list-style-type: none;
-    margin-left: 27%;
-}
-
-.navbar li {
-    display: inline;
-    margin-right: 20px;
-}
-
-.navbar a {
-    color: white;
+nav a {
+    color: #fff;
     text-decoration: none;
-    font-weight: bold;
+    font-size: 16px;
+    padding: 5px 10px;
 }
 
-.navbar a:hover {
+nav a:hover {
     transition: 0.8s;
     opacity: 0.6;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.search-bar input {
+    margin-top: 13px;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 15px;
+}
+
+.search-bar button {
+    color: white;
+    background-color: #4e5863;
+    border: none;
+    padding: 5px 10px;
+    margin-top: 13px;
+    margin-right: 50px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 15px;
+    font-size: 17px;
+}
+
+.search-bar button:hover {
+    background-color: #667786; 
 }
 
 .container {
@@ -158,4 +202,19 @@ span:hover{
 
 #excluir button:hover{
     background-color: #ff4444;
+}
+
+.filtro {
+    margin-top: 23px;
+    cursor: pointer;
+    border: none;
+    text-align: center;
+    background-color: #636d77;
+    font-size: 16px;
+    color: white;
+    width: 90px;
+    appearance: none; 
+    /*border-radius: 15px;*/
+    font-size: 17px;
+    font-weight: bold;
 }
