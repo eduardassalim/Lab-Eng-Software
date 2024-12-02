@@ -1,4 +1,4 @@
-from peewee import Model, DateTimeField, ForeignKeyField
+from peewee import Model, DateTimeField, ForeignKeyField, BooleanField
 from database.database import db
 from database.models.cliente import Cliente
 from database.models.livro import Livro
@@ -9,6 +9,7 @@ class Emprestimo(Model):
     livro = ForeignKeyField(Livro, backref='emprestimo')
     data_emprestimo = DateTimeField()
     data_devolucao = DateTimeField()
+    devolvido = BooleanField(default=False)
     data_registro = DateTimeField(default = datetime.datetime.now)
     
     class Meta:

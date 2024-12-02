@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for
 from datetime import datetime, timedelta
 
 from database.models.livro import Livro
@@ -73,13 +73,42 @@ def inserir_emprestimo():
         data_emprestimo = datetime_emprestimo,
         data_devolucao = datetime_devolucao 
     )
+    
+    # atualiza a disponibilidade do livro para False
+    livro = Livro.get_or_none(Livro.id == dados['idLivro'])
+    livro.disponivel = False
+    livro.save()
         
     return render_template('emprestimo/item_emprestimo.html', emprestimo = novo_emprestimo)
+
+# /emprestimos/<id>/return (POST) - realizar a devolução do empréstimo
+@emprestimo_route.route('/<int:id>/return', methods=['POST'])
+def devolver_emprestimo(id):
+    emprestimo = Emprestimo.get_or_none(Emprestimo.id == id)
+
+    # Atualizar a disponibilidade do livro para True
+    livro = emprestimo.livro
+    livro.disponivel = True
+    livro.save()
+
+    # atualiza a data de devolução para o momento atual
+    emprestimo.data_devolucao = datetime.now()
+    emprestimo.save()
+
+    # atualiza a situação do empréstimo
+    emprestimo.devolvido = True
+    emprestimo.save()
+
+    return redirect(url_for('emprestimo.home_emprestimos'))
+
     
 # /emprestimos/new (GET) - renderizar formulario de criação do emprestimo
 @emprestimo_route.route('/new')
 def form_emprestimo():
-    return render_template('emprestimo/cadastro-emprestimo.html', livros = Livro.select(), clientes = Cliente.select())
+    # filtrando apenas os livros disponíveis
+    livros = [livro for livro in Livro.select() if livro.disponivel]
+    
+    return render_template('emprestimo/cadastro-emprestimo.html', livros = livros, clientes = Cliente.select())
 
 # /emprestimos/<id> (GET) - obter os dados de um emprestimo
 @emprestimo_route.route('/<int:id>')

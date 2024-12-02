@@ -1,4 +1,4 @@
-<tr id="emprestimo-{{ emprestimo.id }}">
+<tr id="emprestimo-{{ emprestimo.id }}" c-reload-container="true">
     <th scope="row">{{ emprestimo.id }}</th>
     <td>{{ emprestimo.cliente.nome }}</td>
     <td>{{ emprestimo.livro.titulo }}</td>
@@ -7,5 +7,10 @@
         <button id="info" c-get="{{ url_for('emprestimo.detalhe_emprestimo', id=emprestimo.id) }}" c-target="#exibir-emprestimo" data-bs-toggle="modal" data-bs-target="#emprestimoModal">Info</button>
         <button id="editar" c-get="{{ url_for('emprestimo.editar_emprestimo', id=emprestimo.id) }}" c-target="#form-emprestimo">Editar</button>
         <button id="excluir" c-delete="{{ url_for('emprestimo.deletar_emprestimo', id=emprestimo.id) }}" c-remove-closest="tr">Excluir</button>
+        {% if not emprestimo.devolvido %}
+        <form action="/emprestimos/{{ emprestimo.id }}/return" method="post" style="display:inline;">
+            <button id="devolver" type="submit">Devolver</button>
+        </form>
+        {% endif %}
     </td>
 </tr>

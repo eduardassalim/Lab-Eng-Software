@@ -43,7 +43,7 @@ def inserir_editora():
     # criando editora no banco de dados        
     nova_editora = Editora.create(
         nome = dados['nomeEditora'],
-        endereco = dados['endereco'],
+        endereco = dados['enderecoEditora'],
         telefone = dados['telefoneEditora'],
         CNPJ = dados['cnpjEditora']
     )
