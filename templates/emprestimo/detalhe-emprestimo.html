@@ -5,4 +5,25 @@
     <li>Data de Empréstimo: {{ emprestimo.data_emprestimo.strftime("%d/%m/%Y") }}</li>
     <li>Data de Devolução: {{ emprestimo.data_devolucao.strftime("%d/%m/%Y") }}</li>
     <li>Data de Registro: {{ emprestimo.data_registro.strftime("%d/%m/%Y") }}</li>
+    <li>
+        {% if avaliacao_existente %}
+            <strong>Avaliação neste Empréstimo:</strong> 
+            {{ avaliacao_existente.nota }} estrelas
+        {% else %}
+            <strong>Este empréstimo ainda não foi avaliado.</strong>
+        {% endif %}
+    </li>
 </ul>
+
+<h4>{% if avaliacao_existente %}Atualizar Avaliação{% else %}Avaliar o Livro{% endif %}</h4>
+<form action="{{ url_for('livro.avaliar_livro', id=emprestimo.id) }}" method="post">
+    <label for="nota">Avaliação:</label>
+    <select id="nota" name="nota" required>
+        <option value="1" {% if avaliacao_existente and avaliacao_existente.nota == 1 %}selected{% endif %}>1 Estrela</option>
+        <option value="2" {% if avaliacao_existente and avaliacao_existente.nota == 2 %}selected{% endif %}>2 Estrelas</option>
+        <option value="3" {% if avaliacao_existente and avaliacao_existente.nota == 3 %}selected{% endif %}>3 Estrelas</option>
+        <option value="4" {% if avaliacao_existente and avaliacao_existente.nota == 4 %}selected{% endif %}>4 Estrelas</option>
+        <option value="5" {% if avaliacao_existente and avaliacao_existente.nota == 5 %}selected{% endif %}>5 Estrelas</option>
+    </select>
+    <button type="submit">{% if avaliacao_existente %}Atualizar{% else %}Enviar{% endif %} Avaliação</button>
+</form>

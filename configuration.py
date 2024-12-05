@@ -13,6 +13,7 @@ from database.models.cliente import Cliente
 from database.models.editora import Editora
 from database.models.atendente import Atendente
 from database.models.emprestimo import Emprestimo
+from database.models.avaliacao import Avaliacao
 
 def configure_all(app):
     configure_db()
@@ -29,4 +30,4 @@ def configure_routes(app):
 
 def configure_db():
     db.connect() # conexão com o banco de dados
-    db.create_tables([Cliente, Atendente, Livro, Editora, Emprestimo]) # criação das tabelas do banco de dados (caso as tabelas já existirem ele irá carrega-las)
+    db.create_tables([Cliente, Atendente, Livro, Editora, Emprestimo, Avaliacao]) # criação das tabelas do banco de dados (caso as tabelas já existirem ele irá carrega-las)

@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from database.models.livro import Livro
 from database.models.cliente import Cliente
 from database.models.emprestimo import Emprestimo
+from database.models.avaliacao import Avaliacao
 
 emprestimo_route = Blueprint('emprestimo', __name__)
 
@@ -64,8 +65,8 @@ def inserir_emprestimo():
     dados = request.json # atribuindo os dados do request para uma variável
     
     # criando emprestimo no banco de dados
-    datetime_emprestimo = datetime.strptime(dados['dataEmprestimo'], "%Y-%m-%d") if dados['dataEmprestimo'] else datetime.now() # transforma string em datetime
-    datetime_devolucao = datetime.strptime(dados['dataDevolucao'], "%Y-%m-%d") if dados['dataDevolucao'] else datetime_emprestimo + timedelta(days=7) # adiciona 7 dias com base na data de empréstimo
+    datetime_emprestimo = datetime.strptime(dados['dataEmprestimo'], "%d/%m/%Y") if dados['dataEmprestimo'] else datetime.now() # transforma string em datetime
+    datetime_devolucao = datetime.strptime(dados['dataDevolucao'], "%d/%m/%Y") if dados['dataDevolucao'] else datetime_emprestimo + timedelta(days=7) # adiciona 7 dias com base na data de empréstimo
         
     novo_emprestimo = Emprestimo.create(
         cliente = dados['idCliente'],
@@ -101,7 +102,6 @@ def devolver_emprestimo(id):
 
     return redirect(url_for('emprestimo.home_emprestimos'))
 
-    
 # /emprestimos/new (GET) - renderizar formulario de criação do emprestimo
 @emprestimo_route.route('/new')
 def form_emprestimo():
@@ -114,7 +114,15 @@ def form_emprestimo():
 @emprestimo_route.route('/<int:id>')
 def detalhe_emprestimo(id):
     emprestimo = Emprestimo.get_by_id(id)
-    return render_template('emprestimo/detalhe-emprestimo.html', emprestimo = emprestimo)
+    
+    # busca a avaliação associada ao empréstimo
+    avaliacao_existente = Avaliacao.get_or_none(Avaliacao.emprestimo == emprestimo)
+    
+    # calcula a média das avaliações do livro
+    avaliacoes = Avaliacao.select().where(Avaliacao.livro == emprestimo.livro)
+    media_avaliacoes = sum(avaliacao.nota for avaliacao in avaliacoes) / avaliacoes.count() if avaliacoes else None
+    
+    return render_template('emprestimo/detalhe-emprestimo.html', emprestimo = emprestimo, avaliacao_existente = avaliacao_existente, media_avaliacoes = media_avaliacoes, quantidade_avaliacoes = avaliacoes.count() if avaliacoes else 0)
 
 # /emprestimos/<id>/edit (GET) - renderizar formulário da edição do emprestimo
 @emprestimo_route.route('/<int:id>/edit')
@@ -129,8 +137,8 @@ def editar_emprestimo(id):
 def atualizar_emprestimo(id):
     dados = request.json
     
-    datetime_emprestimo = datetime.strptime(dados['dataEmprestimo'], "%Y-%m-%d") # transforma string em datetime
-    datetime_devolucao = datetime.strptime(dados['dataDevolucao'], "%Y-%m-%d") # transforma string em datetime
+    datetime_emprestimo = datetime.strptime(dados['dataEmprestimo'], "%d/%m/%Y") # transforma string em datetime
+    datetime_devolucao = datetime.strptime(dados['dataDevolucao'], "%d/%m/%Y") # transforma string em datetime
     
     emprestimo_editado = Emprestimo.get_by_id(id)
     emprestimo_editado.cliente = dados['idCliente'],

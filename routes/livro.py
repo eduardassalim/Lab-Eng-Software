@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for
 from datetime import datetime
 
 from database.models.livro import Livro
 from database.models.editora import Editora
+from database.models.avaliacao import Avaliacao
+from database.models.emprestimo import Emprestimo
 
 livro_route = Blueprint('livro', __name__)
 
@@ -58,8 +60,9 @@ def lista_livros():
 def inserir_livro():     
     dados = request.json # atribuindo os dados do request para uma variável
     
+    print(dados['dataLancamento'])
     # criando livro no banco de dados
-    data = datetime.strptime(dados['dataLancamento'], "%Y-%m-%d") # transforma string em datetime
+    data = datetime.strptime(dados['dataLancamento'], "%d/%m/%Y") # transforma string em datetime
         
     novo_livro = Livro.create(
         titulo = dados['tituloLivro'],
@@ -80,7 +83,14 @@ def form_livro():
 @livro_route.route('/<int:id>')
 def detalhe_livro(id):
     livro = Livro.get_by_id(id)
-    return render_template('livro/detalhe-livro.html', livro = livro)
+    
+    # Calcular a média manualmente
+    avaliacoes = Avaliacao.select().where(Avaliacao.livro == livro)
+    total_notas = sum([avaliacao.nota for avaliacao in avaliacoes])
+    quantidade_avaliacoes = avaliacoes.count()
+    media = total_notas / quantidade_avaliacoes if quantidade_avaliacoes > 0 else None
+    
+    return render_template('livro/detalhe-livro.html', livro = livro, media_avaliacoes = media, quantidade_avaliacoes = quantidade_avaliacoes)
 
 # /livros/<id>/edit (GET) - renderizar formulário da edição do livro
 @livro_route.route('/<int:id>/edit')
@@ -93,7 +103,7 @@ def editar_livro(id):
 def atualizar_livro(id):
     dados = request.json
     
-    data = datetime.strptime(dados['dataLancamento'], "%Y-%m-%d") # transforma string em datetime
+    data = datetime.strptime(dados['dataLancamento'], "%d/%m/%Y") # transforma string em datetime
     
     livro_editado = Livro.get_by_id(id)
     livro_editado.titulo = dados['tituloLivro']
@@ -113,3 +123,29 @@ def deletar_livro(id):
     livro_deletado.delete_instance()
     
     return {'delete': 'ok'}
+
+# /livros/<id>/avaliar (POST) - avalia um livro
+@livro_route.route('/livros/<int:id>/avaliar', methods=['POST'])
+def avaliar_livro(id):
+    emprestimo = Emprestimo.get_or_none(Emprestimo.id == id)
+
+    # obtém a nota enviada pelo formulário
+    nota = int(request.form.get('nota'))
+    
+    # Verifica se já existe uma avaliação para o mesmo livro e cliente
+    avaliacao_existente = Avaliacao.get_or_none(Avaliacao.emprestimo == emprestimo)
+
+    if avaliacao_existente:
+        # Atualiza a nota existente
+        avaliacao_existente.nota = nota
+        avaliacao_existente.save()
+    else:
+        # cria uma nova avaliação para este empréstimo
+        Avaliacao.create(
+            livro=emprestimo.livro,
+            emprestimo=emprestimo,
+            nota=nota
+        )
+
+    # redireciona de volta para a página de detalhes
+    return redirect(url_for('emprestimo.home_emprestimos', id = id))

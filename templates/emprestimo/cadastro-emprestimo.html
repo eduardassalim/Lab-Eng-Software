@@ -34,7 +34,7 @@
     <label for="livro">Livro</label>
     <select name="idLivro" id="livro" required>
         {% for livro in livros %}
-            <option value="{{ livro.id }}" {% if emprestimo and emprestimo.livro.id == livro.id %} selected {% endif %}>{{ livro.titulo }}</option>
+            <option value="{{ livro.id }}" {% if emprestimo and emprestimo.livro.id == livro.id %} selected {% endif %}>{{ livro.titulo }} - {{ livro.ISBN }}</option>
         {% endfor %}
     </select>
     <button class="cadastrar" type="submit">{% if emprestimo %}Salvar{% else %}Cadastrar{% endif %}</button>
