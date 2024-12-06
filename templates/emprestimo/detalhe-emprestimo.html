@@ -25,5 +25,5 @@
         <option value="4" {% if avaliacao_existente and avaliacao_existente.nota == 4 %}selected{% endif %}>4 Estrelas</option>
         <option value="5" {% if avaliacao_existente and avaliacao_existente.nota == 5 %}selected{% endif %}>5 Estrelas</option>
     </select>
-    <button type="submit">{% if avaliacao_existente %}Atualizar{% else %}Enviar{% endif %} Avaliação</button>
+    <button id="editar" type="submit">{% if avaliacao_existente %}Atualizar{% else %}Enviar{% endif %} Avaliação</button>
 </form>

@@ -6,6 +6,10 @@ html, body {
     margin: 0;	
 }
 
+.flex{
+    display: flex;
+}
+
 nav {
     text-decoration: none;
     display: flex;
@@ -230,4 +234,27 @@ span:hover{
     /*border-radius: 15px;*/
     font-size: 17px;
     font-weight: bold;
+}
+
+section.topo-do-site{
+    padding: 40px 4%;
+
+}
+
+section.topo-do-site .flex{
+    align-items: center;
+    justify-content: center;
+    gap: 90px;
+}
+
+.topo-do-site h1{
+    color: black;
+    font-size: 40px;
+    line-height: 40px;
+}
+
+.topo-do-site .txt-topo-site p{
+    color: black;
+    margin: 40px 0;
+
 }
